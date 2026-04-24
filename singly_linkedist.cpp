@@ -8,11 +8,9 @@ class Node
         Node *next;
 };
 
-
 class LinkedList
 {
     Node *START;
-
 
 public:
     LinkedList()
@@ -20,17 +18,14 @@ public:
         START = NULL;
     }
 
-
     void addNode()
     {
         int nim;
         cout << "\nMasukkan Nomor Mahasiswa: ";
         cin >> nim;
 
-
         Node *nodeBaru = new Node;
         nodeBaru->noMhs = nim;
-
 
         if (START == NULL || nim <= START->noMhs)
         {
@@ -40,16 +35,13 @@ public:
                 return;
             }
 
-
             nodeBaru->next = START;
             START = nodeBaru;
             return;
         }
 
-
         Node *previous = START;
         Node *current = START;
-
 
         while ((current != NULL) && (nim >= current->noMhs))
         {
@@ -59,20 +51,19 @@ public:
                 return;
             }
 
-
             previous = current;
             current = current->next;
         }
 
-
         nodeBaru->next = current;
         previous->next = nodeBaru;
     }
+
     bool ListEmpty()
     {
         return (START == NULL);
     }
-    
+
     bool Search(int nim, Node **previous, Node **current)
     {
         *previous = START;
@@ -92,13 +83,16 @@ public:
         Node *current, *previous;
         if (!Search(nim, &previous, &current))
             return false;
+
         if (current == START)
             START = START->next;
         else
             previous->next = current->next;
+
         delete current;
         return true;
     }
+
     void traverse()
     {
         if(ListEmpty())
@@ -122,13 +116,11 @@ public:
 #include <iostream>
 using namespace std;
 
-
 int main() 
 {
     LinkedList mhs;
     int nim;
     char ch;
-
 
     do 
     {
@@ -146,76 +138,83 @@ int main()
         cin >> ch;
 
         switch (ch) 
-    
+        {
             case '1':
             {
-                 mhs.addNode();
+                mhs.addNode();
             }
             break;
 
             case '2':
-{
-    if (mhs.ListEmpty()) 
-    {
-        cout << endl;
-        cout << "List Kosong" << endl;
-        break;
-    }
-    cout << endl;
-    cout << "\nMasukkan no mahasiswa yang akan dihapus : ";
-    cin >> nim;
-    if (mhs.delNode(nim) == false) 
-    {
-        cout << endl;
-        cout << "Data tidak ditemukan" << endl;
-    }
-    else 
-    {
-        cout << endl;
-        cout << "Data dengan nomor mahasiswa " << nim 
-             << " berhasil dihapus " << endl;
-    }
+            {
+                if (mhs.ListEmpty()) 
+                {
+                    cout << endl;
+                    cout << "List Kosong" << endl;
+                    break;
+                }
+
+                cout << endl;
+                cout << "\nMasukkan no mahasiswa yang akan dihapus : ";
+                cin >> nim;
+
+                if (mhs.delNode(nim) == false) 
+                {
+                    cout << endl;
+                    cout << "Data tidak ditemukan" << endl;
+                }
+                else 
+                {
+                    cout << endl;
+                    cout << "Data dengan nomor mahasiswa " << nim 
+                         << " berhasil dihapus " << endl;
+                }
+            }
+            break;
+
+            case '3':
+            {
+                mhs.traverse();
+            }
+            break;
+
+            case '4':
+            {
+                if (mhs.ListEmpty() == true) 
+                {
+                    cout << "\nList Kosong\n";
+                    break;
+                }
+
+                Node *previous, *current;
+                cout << endl;
+                cout << "Masukkan no mahasiswa yang dicari : ";
+                cin >> nim;
+
+                if (mhs.Search(nim, &previous, &current) == false) 
+                {
+                    cout << endl;
+                    cout << "Data tidak ditemukan" << endl;
+                }
+                else 
+                {
+                    cout << endl;
+                    cout << "Data ditemukan" << endl;
+                    cout << "\nNo Mahasiswa: " << current->noMhs << endl;
+                    cout << "\n";
+                }
+            }
+            break;
+
+            case '5':
+            { 
+            }
+            break;
+            default:
+            {
+                cout << "Pilihan salah !." << endl;
+            }
+            break;
+        }    
+    } while (ch != '5');
 }
-break;
-case '3':
-{
-    mhs.traverse();
-}
-break;
-case '4':
-{
-    if (mhs.ListEmpty() == true) 
-    {
-        cout << "\nList Kosong\n";
-        break;
-    }
-    Node *previous, *current;
-    cout << endl;
-    cout << "Masukkan no mahasiswa yang dicari : ";
-    cin >> nim;
-    if (mhs.Search(nim, &previous, &current) == false) 
-    {
-        cout << endl;
-        cout << "Data tidak ditemukan" << endl;
-    }
-    else 
-    {
-        cout << endl;
-        cout << "Data ditemukan" << endl;
-        cout << "\nNo Mahasiswa: " << current->noMhs << endl;
-        cout << "\n";
-    }
-}
-break;
-case '5':
-{ 
-}
-break;
-default:
-{
-    cout << "Pilihan salah !." << endl;
-}
-break;
- 
-(ch != '5');
-        
