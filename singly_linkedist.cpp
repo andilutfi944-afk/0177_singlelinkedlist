@@ -3,19 +3,19 @@ using namespace std;
 
 class Node
 {
-public:
-    int noMhs;
-    Node *next;
+    public:
+        int noMhs;
+        Node *next;
 };
 
 
-class linkedlist
+class LinkedList
 {
     Node *START;
 
 
 public:
-    linkedlist()
+    LinkedList()
     {
         START = NULL;
     }
@@ -34,11 +34,13 @@ public:
 
         if (START == NULL || nim <= START->noMhs)
         {
-            if ((START != NULL) && (nim == START->noMhs))
+            if((START != NULL) && (nim == START->noMhs))
             {
-                cout << "\nDuplikasih noMhs tidak diijinkan\n";
+                cout << "\nDuplikasi noMhs tidak diijinkan\n";
                 return;
             }
+
+
             nodeBaru->next = START;
             START = nodeBaru;
             return;
@@ -49,15 +51,21 @@ public:
         Node *current = START;
 
 
-        while ((current != NULL) && (nim >= current-> noMhs))
+        while ((current != NULL) && (nim >= current->noMhs))
         {
             if (nim == current->noMhs)
             {
-                cout << "\nDuplikasih noMhs tidak diijinkan\n";
+                cout << "\nDuplikasi noMhs tidak diijinkan\n";
                 return;
             }
+
+
             previous = current;
             current = current->next;
         }
+
+
+        nodeBaru->next = current;
+        previous->next = nodeBaru;
     }
-};
+}
